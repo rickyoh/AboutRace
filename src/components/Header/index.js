@@ -119,7 +119,7 @@ const pages = [
   { name: 'teaching', link: '/teaching' },
   { name: 'interviews', link: '/interviews' },
   { name: 'articles', link: '/articles' },
-  { name: 'q&a', link: '/qa' },
+  { name: 'qa', link: '/qa' },
   { name: 'about', link: '/about' }
 ]
 
@@ -151,7 +151,7 @@ class Header extends React.Component {
                   selected={name.indexOf(currentSection) >= 0}
                   href={link}
                   key={index}
-                >{name}</Item>)
+                >{(name)==='qa'? 'q&a': name}</Item>)
               }
             </ItemsContainer>
           ] :
@@ -161,7 +161,7 @@ class Header extends React.Component {
                   selected={name.indexOf(currentSection) >= 0}
                   href={link}
                   key={index}
-                >{name}</Item>)
+                >{(name)==='qa'? 'q&a': name}</Item>)
               }
             </ItemsContainer>
         }
