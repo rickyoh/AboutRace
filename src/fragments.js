@@ -369,6 +369,8 @@ export const FullInterviewFragment = graphql`
 export const QAFragment = graphql`
   fragment QAFragment on node__faq {
     title
+    field_belong_to_episode
+    field_question_number
     field_expert_1 {
       value
       format
@@ -387,6 +389,7 @@ export const FullQAFragment = graphql`
       slug
     }
     field_belong_to_episode
+    field_question_number
     field_title {
       processed
     }
@@ -396,16 +399,10 @@ export const FullQAFragment = graphql`
     field_expert_1 {
       processed
     }
+    field_expert_2_answer {
+      processed
+    }
     field_expert_1_answer {
-      processed
-    }
-    field_expert_2 {
-      processed
-    }
-    field_expert_3_name {
-      processed
-    }
-    field_expert_4_name {
       processed
     }
     field_expert_4_answer {
@@ -452,6 +449,30 @@ export const FullQAFragment = graphql`
           interviews: backref_field_tags_node_interview {
             ...InterviewFragment
           }
+        }
+      }
+      field_expert_1_reference {
+        __typename
+        ... on node__expert {
+          ...ExpertFragment
+        }
+      }
+      field_expert_2_reference {
+        __typename
+        ... on node__expert {
+          ...ExpertFragment
+        }
+      }
+      field_expert_3_reference {
+        __typename
+        ... on node__expert {
+          ...ExpertFragment
+        }
+      }
+      field_expert_4_reference {
+        __typename
+        ... on node__expert {
+          ...ExpertFragment
         }
       }
     }
@@ -665,6 +686,18 @@ export const LessonPlanFragment = graphql`
       processed
     }
     field_subjects {
+      processed
+    }
+    field_mat {
+      processed
+    }
+    field_relevant_standards {
+      processed
+    }
+    field_assessment {
+      processed
+    }
+    field_additional_resources {
       processed
     }
     relationships {

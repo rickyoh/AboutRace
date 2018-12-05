@@ -23,6 +23,10 @@ import { SIGCHLD } from 'constants';
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom:10px;
+  label{
+    font-weight:bold;
+  }
 `
 
 const Column = styled.div`
@@ -56,7 +60,7 @@ const SideBar = styled(Column)`
     display: none;
   }
 
-
+  font-size: 20px;
   padding: 35px;
   background: white;
   border-radius: 15px;
@@ -123,10 +127,16 @@ const Title = styled.div`
   font-weight: 500;
   font-size: 36px;
   line-height: 42px;
-
-  margin-bottom: 17px;
-
   color: ${softblack};
+`
+
+const SectionTitle = styled.div`
+font-family: 'Quicksand';
+font-weight: 500;
+font-size: 24px;
+line-height: 115%;
+color: ${softblack};
+text-align:center;
 `
 
 const SubTitle = styled.div`
@@ -149,13 +159,14 @@ const SubTitle = styled.div`
   }
 `
 const Episode = styled.div`
-font-size: 16px;
-margin: 5px 0px 0px;
+font-size: 20px;
+margin: 5px 0px 10px;
 border: 1px solid;
 padding: 6px;
 border-radius: 5px;
 background: orange;
 display: inline-block;
+
 `
 
 class LessonPlan extends React.Component {
@@ -182,6 +193,15 @@ class LessonPlan extends React.Component {
     const grade_levels = get(this, `props.data.${nodeName}.field_grade_levels.processed`)
     const time_allotment = get(this, `props.data.${nodeName}.field_time_allotment.processed`)
 
+    const assessment = get(this, `props.data.${nodeName}.field_assessment.processed`)
+    const materials = get(this, `props.data.${nodeName}.field_mat.processed`)
+    const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
+    const activities = get(this, `props.data.${nodeName}.field_activity`)
+
+    const activitiesBlocks = activities.map((activity) => 
+      <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
+    )
+
     let episodeElement = '';
     if(episode != null){
       episodeElement = <Episode>Episode {episode}</Episode>
@@ -198,17 +218,36 @@ class LessonPlan extends React.Component {
                 <Title>{title}</Title>
               </ContentBox>
               <ContentBox>
-                <div>Overview</div>
+                <SectionTitle>Overview</SectionTitle>
                 <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
               </ContentBox>
 
               <ContentBox>
-                
+                <SectionTitle>Objective</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Lesson Plan</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
               </ContentBox>
               
-              
-              <SubTitle>materials</SubTitle>
+              <ContentBox>
+                <SectionTitle>Materials</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Assessment</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Activities</SectionTitle>
+              </ContentBox>
+              {activitiesBlocks}
+
+
             </ContentBar>
             <SideBar>
               <div>
