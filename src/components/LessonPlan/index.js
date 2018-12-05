@@ -16,7 +16,9 @@ import {
   whiteShadowTrans,
   red,
   softblack,
+  lessonplan,
 } from '../../colors'
+import { SIGCHLD } from 'constants';
 
 const Row = styled.div`
   display: flex;
@@ -26,6 +28,46 @@ const Row = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+const Content = styled(Row)`
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 18px 0 72px 0;
+  align-items: flex-start;
+`
+
+const SideBar = styled(Column)`
+  display: none;
+
+  flex: 1;
+
+  padding-left: 60px;
+  padding-right: 30px;
+
+  @media (min-width: 1025px) { /* desktop */
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    display: none;
+  }
+
+
+  padding: 35px;
+  background: white;
+  border-radius: 15px;
+  height: auto;
+  border:1px solid ${softblack};
+`
+
+const ContentBar = styled(Column)`
+  align-items: center;
+  padding-right: 60px;
+  flex:3;
 `
 
 const MainText = styled.div`
@@ -41,6 +83,8 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  background-color: ${lessonplan};
 
   @media (min-width: 1025px) { /* desktop */
 
@@ -64,6 +108,14 @@ const MobileRow = styled.div`
   @media (max-width: 812px) { /* mobile */
      flex-direction: column;
   }
+`
+
+const ContentBox = styled.div`
+  background:${white};
+  border:1px solid ${softblack};
+  border-radius:15px;
+  padding: 25px;
+  margin-bottom: 20px;
 `
 
 const Title = styled.div`
@@ -116,26 +168,40 @@ class LessonPlan extends React.Component {
     const authorCopyright = get(this, `props.data.${nodeName}.field_copyright_a.processed`)
     
 
+    const field_episode = get(this, `props.data.${nodeName}.field_episode`)
+    const field_subjects = get(this, `props.data.${nodeName}.field_subjects.processed`)
+    const field_grade_levels = get(this, `props.data.${nodeName}.field_grade_levels.processed`)
+    const field_time_allotment = get(this, `props.data.${nodeName}.field_time_allotment.processed`)
+    const field_lesson_plan_author = get(this, `props.data.${nodeName}.field_lesson_plan_author.processed`)
+    const field_less_plan_author_bio = get(this, `props.data.${nodeName}.field_less_plan_author_bio.processed`)
+
     return (
       <Container>
         <MobileRow>
-          <Column style={{flex:3}}>
-            <Row>
-            <Title>{title}</Title>
-            </Row>
-            <Column>
-              <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-            </Column>
-            <Column>
-              <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
-            </Column>
-            <SubTitle>materials</SubTitle>
-          </Column>
-          <Column style={{flex:1, paddingLeft: 30}}>
-            <Row>Lesson Plan by {author}</Row>
-            <Row>{authorBio}</Row>
-            <Row>{authorCopyright}</Row>
-          </Column>
+          <Content>
+            <ContentBar>
+              <ContentBox>
+                <Title>{title}</Title>
+              </ContentBox>
+              <ContentBox>
+                <div>Overview</div>
+                <MainText dangerouslySetInnerHTML={{ __html: description }}/>
+                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
+              </ContentBox>
+
+              <ContentBox>
+                
+              </ContentBox>
+              
+              
+              <SubTitle>materials</SubTitle>
+            </ContentBar>
+            <SideBar>
+              <Row>Lesson Plan by {author}</Row>
+              <Row>{authorBio}</Row>
+              <Row>{authorCopyright}</Row>
+            </SideBar>
+          </Content>
         </MobileRow>
       </Container>
     )

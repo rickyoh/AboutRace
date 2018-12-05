@@ -21,7 +21,8 @@ export const PosterImageClipFragment = graphql`
 export const ArticleFragment = graphql`
   fragment ArticleFragment on node__article {
     title
-    field_include_in_the_teaching_se
+    field_is_additional_resource
+    field_is_popular_resource
     field_short_version {
       processed
     }
@@ -45,7 +46,8 @@ export const FullArticleFragment = graphql`
   fragment FullArticleFragment on node__article {
     __typename
     id
-    field_include_in_the_teaching_se
+    field_is_additional_resource
+    field_is_popular_resource
     field_short_version {
       processed
     }
@@ -163,10 +165,98 @@ export const FullArticleFragment = graphql`
   }
 `;
 
+export const ExternalResourceFragment = graphql`
+fragment ExternalResourceFragment on node__external_resource {
+  title
+  changed
+  field_is_popular_resource
+  field_overview {
+    processed
+  }
+  field_link {
+    uri
+    title
+  }
+  relationships {
+    field_main_image {
+      localFile {
+        publicURL
+      }
+    }
+  }
+}
+`
+
+export const FullExternalResourceFragment = graphql`
+fragment FullExternalResourceFragment on node__external_resource {
+  title
+  changed
+  field_is_popular_resource
+  field_overview {
+    processed
+  }
+  field_link {
+    uri
+    title
+  }
+  relationships {
+    field_main_image {
+      localFile {
+        publicURL
+      }
+    }
+  }
+}
+`
+
+
+export const ExpertFragment = graphql`
+  fragment ExpertFragment on node__expert {
+    title
+    changed
+    field_overview {
+      processed
+    }
+    field_title {
+      processed
+    }
+    relationships {
+      field_main_image {
+        localFile {
+          publicURL
+        }
+      }
+    }
+  }
+`
+
+export const FullExpertFragment = graphql`
+  fragment FullExpertFragment on node__expert {
+    __typename
+    title
+    changed
+    field_overview {
+      processed
+    }
+    field_title {
+      processed
+    }
+    relationships {
+      field_main_image {
+        localFile {
+          publicURL
+        }
+      }
+    }
+  }
+`
+
 export const InterviewFragment = graphql`
   fragment InterviewFragment on node__interview {
     title
     changed
+    field_is_additional_resource
+    field_is_popular_resource
     field_interviewee_bio {
       processed
     }
@@ -191,6 +281,8 @@ export const FullInterviewFragment = graphql`
     __typename
     title
     changed
+    field_is_additional_resource
+    field_is_popular_resource
     field_interviewee_name {
       processed
     }
@@ -374,6 +466,9 @@ export const ClipFragment = graphql`
     field_external_video_url {
       uri
     }
+    field_overview {
+      processed
+    }
     field_title_of_clip {
       processed
     }
@@ -408,6 +503,9 @@ export const FullClipFragment = graphql`
     field_external_video_url {
       uri
       title
+    }
+    field_overview {
+      processed
     }
     field_title_of_clip {
       processed
@@ -528,6 +626,8 @@ export const LessonPlanFragment = graphql`
   fragment LessonPlanFragment on node__lesson_plan {
     id
     title
+    field_is_popular_resource
+    field_episode
     field_activity{
       processed
     }
@@ -583,6 +683,11 @@ export const LessonPlanFragment = graphql`
           interviews: backref_field_tags_node_interview {
             ...InterviewFragment
           }
+        }
+      }
+      field_main_image {
+        localFile {
+          publicURL
         }
       }
     }
