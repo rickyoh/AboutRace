@@ -148,6 +148,15 @@ const SubTitle = styled.div`
     padding-left: 0;
   }
 `
+const Episode = styled.div`
+font-size: 16px;
+margin: 5px 0px 0px;
+border: 1px solid;
+padding: 6px;
+border-radius: 5px;
+background: orange;
+display: inline-block;
+`
 
 class LessonPlan extends React.Component {
   componentDidMount() {
@@ -168,12 +177,17 @@ class LessonPlan extends React.Component {
     const authorCopyright = get(this, `props.data.${nodeName}.field_copyright_a.processed`)
     
 
-    const field_episode = get(this, `props.data.${nodeName}.field_episode`)
-    const field_subjects = get(this, `props.data.${nodeName}.field_subjects.processed`)
-    const field_grade_levels = get(this, `props.data.${nodeName}.field_grade_levels.processed`)
-    const field_time_allotment = get(this, `props.data.${nodeName}.field_time_allotment.processed`)
-    const field_lesson_plan_author = get(this, `props.data.${nodeName}.field_lesson_plan_author.processed`)
-    const field_less_plan_author_bio = get(this, `props.data.${nodeName}.field_less_plan_author_bio.processed`)
+    const episode = get(this, `props.data.${nodeName}.field_episode`)
+    const subjects = get(this, `props.data.${nodeName}.field_subjects.processed`)
+    const grade_levels = get(this, `props.data.${nodeName}.field_grade_levels.processed`)
+    const time_allotment = get(this, `props.data.${nodeName}.field_time_allotment.processed`)
+
+    let episodeElement = '';
+    if(episode != null){
+      episodeElement = <Episode>Episode {episode}</Episode>
+    }else{
+      episodeElement = '';
+    }
 
     return (
       <Container>
@@ -197,9 +211,17 @@ class LessonPlan extends React.Component {
               <SubTitle>materials</SubTitle>
             </ContentBar>
             <SideBar>
-              <Row>Lesson Plan by {author}</Row>
-              <Row>{authorBio}</Row>
-              <Row>{authorCopyright}</Row>
+              <div>
+                {episodeElement}
+
+                <Row><label>Grade Levels:</label> {grade_levels}</Row>
+                <Row><label>Subjects:</label><br />{subjects}</Row>
+                <Row><label>Time Allotment:</label> {time_allotment}</Row>
+                <hr />
+                <Row>Lesson Plan by {author}</Row>
+                <Row>{authorBio}</Row>
+                <Row>{authorCopyright}</Row>
+              </div>
             </SideBar>
           </Content>
         </MobileRow>
