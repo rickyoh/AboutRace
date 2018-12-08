@@ -1,11 +1,13 @@
 import React from "react"
+
 import styled from 'styled-components'
-import {
-  Layout,
-  Interview
-} from '../components'
 
 import { graphql } from 'gatsby'
+
+import {
+  Layout,
+  Expert
+} from '../components'
 
 import {
   white
@@ -21,8 +23,7 @@ const Container = styled.div`
 
 export default ({ data, location }) => <Layout location={location}>
   <Container>
-    test
-    {/* <Interview data={data} /> */}
+    <Expert data={data} />
   </Container>
 </Layout>
 

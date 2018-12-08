@@ -250,15 +250,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         })
       })
 
-      // _.each(result.data.allNodeExpert.edges, edge => {
-      //   createPage({
-      //     path: `/experts/${kebabCase(edge.node.title)}`, // required
-      //     component: expertTemplate,
-      //     context: {
-      //       id: edge.node.id,
-      //     },
-      //   })
-      // })
+      _.each(result.data.allNodeExpert.edges, edge => {
+        createPage({
+          path: `/experts/${kebabCase(edge.node.title)}`, // required
+          component: expertTemplate,
+          context: {
+            id: edge.node.id,
+          },
+        })
+      })
 
       _.each(result.data.allNodeInterview.edges, edge => {
         createPage({
