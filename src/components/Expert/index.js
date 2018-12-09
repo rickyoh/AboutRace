@@ -2,6 +2,11 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 import get from 'lodash/get'
+
+import FlipMove from 'react-flip-move'
+
+import getCards from '../../utils/getCards'
+
 export const white = '#FFFFFF';
 export const experts = 'grey';
 const Container = styled.div`
@@ -37,6 +42,32 @@ const InnerContainer = styled.div`
 margin:50px auto;
   max-width: 1200px;
 
+`
+
+const CardsContainer = styled(FlipMove)`
+  display: flex;  
+  flex-direction: row; 
+  flex-wrap: wrap;
+
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 50px;
+  padding-bottom: 70px;
+
+  @media (min-width: 1025px) { /* desktop */
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 200px;
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+
+    min-width: 100vw;
+  }
 `
 
 const Row = styled.div`
@@ -88,8 +119,6 @@ const ContentBar = styled(Column)`
   flex: 1;
   margin-top: -30px;
 
-  z-index: 10;
-
   @media (min-width: 1025px) { /* desktop */
     
   }
@@ -138,16 +167,48 @@ class Expert extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-
-    const {overlay} = this.props
     const nodeName = 'nodeExpert'
 
     const name = get(this, `props.data.${nodeName}.title`)
     const jobTitle = get(this, `props.data.${nodeName}.field_title.processed`)
     const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
     const image = get(this, `props.data.${nodeName}.relationships.field_main_image.localFile.publicURL`)
-      console.log(image)
+
+
+    const allInterviews = get(this, `props.data.allNodeInterview.edges`)
+    const allNodeFaq = get(this, `props.data.allNodeFaq.edges`)
+
+    let interviews = [];
+    let faqs = [];
+
+    allInterviews.forEach(function(element) {
+      let ref = get(element, `node.relationships.field_expert_reference`)
+      if(ref != null && ref.title == name){   
+        interviews.push(element.node);
+      }
+    });
+
+
+    allNodeFaq.forEach(function(element) {
+      let ref1 = get(element, `node.relationships.field_expert_1_reference`)
+      let ref2 = get(element, `node.relationships.field_expert_2_reference`)
+      let ref3 = get(element, `node.relationships.field_expert_3_reference`)
+      let ref4 = get(element, `node.relationships.field_expert_4_reference`)
+
+      if((ref1 != null && ref1.title == name) ||
+         (ref2 != null && ref2.title == name) ||
+         (ref3 != null && ref3.title == name) ||
+         (ref4 != null && ref4.title == name)
+      ){
+
+        faqs.push(element.node);
+      }
+    });
+
+    const cards = { interviews, faqs }
+
+    const relatedContent = getCards(cards)
+// // console.log(expertInterviews)
     return (
       <Container>
         <InnerContainer>
@@ -162,6 +223,9 @@ class Expert extends React.Component {
             </ContentBox>
           </ContentBar>
         </InnerContainer>
+            <CardsContainer>
+              { relatedContent }
+            </CardsContainer>
       </Container>
     )
   }

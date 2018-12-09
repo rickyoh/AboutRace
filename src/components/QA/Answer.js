@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import kebabCase from '../../utils/kebabCase'
 import get from 'lodash/get'
+import { Link } from 'gatsby'
 
 const Container = styled.div`
   display: flex;
@@ -121,14 +122,20 @@ class Answer extends React.Component {
         let toggleable = false;
         let toggleText = (this.state.expanded === false) ? '+' : '-';
 
+        const expertLink = `/experts/${kebabCase(expert.title)}` 
+
         if(answer.length > maxlength){
             toggleable = true;
             answer = (this.state.expanded === false) ? answer.substring(0, maxlength)+'...' : answer;
         }
         return (
             <Container>
-                <ExpertImage background={background} />
-                <ExpertTitle>{expert.title}</ExpertTitle>
+
+
+                  <Link style={{color:'inherit', textDecoration:'none'}} to={expertLink}>
+                    <ExpertImage background={background} />
+                    <ExpertTitle>{expert.title}</ExpertTitle>
+                </Link>
                 {expert.field_title ? <ExpertJobTitle dangerouslySetInnerHTML={{ __html: expert.field_title.processed }}/> : null}
                 <ExpertAnswer dangerouslySetInnerHTML={{ __html: answer }}/>
                 {(toggleable) ? 

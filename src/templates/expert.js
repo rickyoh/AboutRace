@@ -32,5 +32,22 @@ export const expertQuery = graphql`
     nodeExpert(id: { eq: $id }) {
       ...FullExpertFragment
     }
+
+    allNodeInterview {
+      edges {
+        node {
+          ...FullInterviewFragment
+        }
+      }
+    }
+
+    allNodeFaq {
+      edges {
+        node {
+          ...FullQAFragment
+        }
+      }
+    }
   }
 `
+
