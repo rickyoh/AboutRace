@@ -215,6 +215,23 @@ const Under = styled.div`
     margin: 15px;
   }
 `
+const SummaryContainer = styled.div`
+  max-width: 510px;
+  margin: 0px 10px;
+  padding-bottom: 45px;
+  a{
+    color: #fff!important;
+    font-size: 28px;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    img{
+      max-width: 75px;
+      display: inline-block;
+      margin: 0px 0px -22px -40px;
+    }
+  }
+`
 
 const Summary = styled.div`
   font-family: 'ff-tisa-web-pro';
@@ -224,9 +241,9 @@ const Summary = styled.div`
   text-align: center;
 
   max-width: 510px;
-  padding-bottom: 102px;
+  padding-bottom: 45px;
 
-  margin: 0px 10px;
+
 
   color: ${fogwhite};
 
@@ -369,8 +386,12 @@ const Video = ({videoId1,videoId2,videoText1,videoText2,image1, image2, under, s
         <VideoText dangerouslySetInnerHTML={{ __html: videoText1 }} />
       </VimeoContainer>
     }
-    <Summary dangerouslySetInnerHTML={{ __html: summary }} />
-
+    <SummaryContainer>
+      <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+      <Link to={'/clips/trailer'}>
+        <img src={require('../assets/images/white-play-button.png')} /> View the trailer
+      </Link>
+    </SummaryContainer>
     {videoId2 &&
       <VimeoContainer background={image2}>
         <Vimeo
