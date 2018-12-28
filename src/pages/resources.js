@@ -126,7 +126,7 @@ class ResourcesContainer extends React.Component {
     let cards = {articles, interviews, lessonplans, externalresources}    
 
     let that = this
-
+    console.log(that.state.filter)
     //['all', 'lesson plans', 'additional resources', 'external resources', 'popular']
     Object.keys(cards).forEach(key => {
 
@@ -179,10 +179,8 @@ class ResourcesContainer extends React.Component {
             <Filters
               selected={this.state.filter}
               select={ filter => {
-                if(!typeof localStorage === "undefined"){
-                  localStorage.setItem('resourceFilter', JSON.stringify(this.state))
-                  this.setState({filter})
-                }
+                localStorage.setItem('resourceFilter', JSON.stringify(this.state))
+                this.setState({filter})
               }}
               //select={ filter => this.setState({filter}) }
             />
