@@ -126,7 +126,7 @@ class ResourcesContainer extends React.Component {
     let cards = {articles, interviews, lessonplans, externalresources}    
 
     let that = this
-    console.log(that.state.filter)
+
     //['all', 'lesson plans', 'additional resources', 'external resources', 'popular']
     Object.keys(cards).forEach(key => {
 
