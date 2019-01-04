@@ -72,6 +72,9 @@ const ContentBar = styled(Column)`
   align-items: center;
   padding-right: 60px;
   flex:3;
+  @media (max-width: 812px) { /* mobile */
+   padding:0px;  
+  }
 `
 
 const MainText = styled.div`
@@ -120,6 +123,7 @@ const ContentBox = styled.div`
   border-radius:15px;
   padding: 25px;
   margin-bottom: 20px;
+  width:100%;
 `
 
 const Title = styled.div`
@@ -198,10 +202,11 @@ class LessonPlan extends React.Component {
     const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
     const activities = get(this, `props.data.${nodeName}.field_activity`)
 
-    let activitiesBlocks = ''
+    let activitiesBlocks = []
+
     if(activities != null){
       activities.forEach(activity => {
-        activitiesBlocks += <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
+        activitiesBlocks.push(<ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>)
       })
     }
 
