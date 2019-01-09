@@ -57,7 +57,7 @@ const TopContainer = styled(Column)`
   background-color: ${smokegrey};
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;

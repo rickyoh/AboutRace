@@ -63,7 +63,7 @@ const SideBar = styled(Column)`
   font-size: 20px;
   padding: 35px;
   background: white;
-  border-radius: 15px;
+  border-radius: 0px;
   height: auto;
   border:1px solid ${softblack};
 `
@@ -120,7 +120,7 @@ const MobileRow = styled.div`
 const ContentBox = styled.div`
   background:${white};
   border:1px solid ${softblack};
-  border-radius:15px;
+  border-radius:0px;
   padding: 25px;
   margin-bottom: 20px;
   width:100%;
@@ -225,36 +225,43 @@ class LessonPlan extends React.Component {
               <ContentBox>
                 <Title>{title}</Title>
               </ContentBox>
-              <ContentBox>
-                <SectionTitle>Overview</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Objective</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Lesson Plan</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
-              </ContentBox>
-              
-              <ContentBox>
-                <SectionTitle>Materials</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Assessment</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Activities</SectionTitle>
-              </ContentBox>
+              {description &&
+                <ContentBox>
+                  <SectionTitle>Overview</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: description }}/>
+                </ContentBox>
+              }
+              {overview &&
+                <ContentBox>
+                  <SectionTitle>Objective</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
+                </ContentBox>
+              }
+              {lessonPlan &&
+                <ContentBox>
+                  <SectionTitle>Lesson Plan</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
+                </ContentBox>
+              }
+              {materials &&
+                <ContentBox>
+                  <SectionTitle>Materials</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
+                </ContentBox>
+              }
+              {assessment &&
+                <ContentBox>
+                  <SectionTitle>Assessment</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
+                </ContentBox>
+              }
+              {activitiesBlocks.length > 0 &&
+                <ContentBox>
+                  <SectionTitle>Activities</SectionTitle>
+                </ContentBox>
+              }
               {activitiesBlocks}
-
+              
 
             </ContentBar>
             <SideBar>
