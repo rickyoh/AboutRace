@@ -94,10 +94,19 @@ const Content = styled(Row)`
   margin: 0 auto;
   padding: 18px 0 72px 0;
   align-items: flex-start;
+
+  @media (max-width: 812px) { /* mobile */
+    flex-direction:column;
+  }
+
 `
 
 const SideBar = styled(Column)`
-  display: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+
 
   flex: 1;
 
@@ -105,21 +114,26 @@ const SideBar = styled(Column)`
   padding-right: 30px;
 
   @media (min-width: 1025px) { /* desktop */
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
+
   }
 
-  @media (max-width: 812px) { /* mobile */
-    display: none;
-  }
+  // @media (max-width: 812px) { /* mobile */
+  //   display: none;
+  // }
 
 
   padding: 35px;
-  background: white;
-  border-radius: 15px;
+  margin-top: 55px;
+ 
   height: auto;
-  border:1px solid ${softblack};
+
+  // border-radius: 15px;
+  // background: white;
+  // border:1px solid ${softblack};
+`
+
+const Chat = styled(Column)`
+  display: block;
 `
 
 const ContentBar = styled(Column)`
@@ -269,10 +283,16 @@ class EventsPage extends React.Component {
     const events = get(this, `props.data.events.edges`).map(edge => edge.node)
 
     let event = null;
+    let chat_url = null;
+    let chat = '';
     events.forEach(function(item) {
       if(item.id == '1f620dc8-dc7e-4dba-83a3-95f8a7e0bbcb'){
         event = item;
        
+        chat_url = 'https://www.youtube.com/live_chat?v=lXeb5eQ2b3Q&amp;embed_domain=www.racepowerofanillusion.org';
+        chat = '<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="'+chat_url+'" width="300" height="550" frameborder="0"></iframe>';
+
+
       }
   
     })
@@ -323,7 +343,12 @@ class EventsPage extends React.Component {
                 }
                 { renderTags() }
               </SideBar> */}
+              <SideBar>
+        
 
+                <Chat dangerouslySetInnerHTML={{ __html: chat }} />
+
+              </SideBar>
             </Content>
           </TopContainer>
 
