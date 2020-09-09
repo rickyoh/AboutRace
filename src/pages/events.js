@@ -283,22 +283,20 @@ class EventsPage extends React.Component {
     const events = get(this, `props.data.events.edges`).map(edge => edge.node)
 
     let event = null;
-    let chat_url = null;
-    let chat = '';
+ 
     events.forEach(function(item) {
       if(item.id == '1f620dc8-dc7e-4dba-83a3-95f8a7e0bbcb'){
         event = item;
-       
-        chat_url = 'https://www.youtube.com/live_chat?v=lXeb5eQ2b3Q&amp;embed_domain=www.racepowerofanillusion.org';
-        chat = '<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="'+chat_url+'" width="300" height="550" frameborder="0"></iframe>';
-
-
       }
   
     })
 
     let title = event.title;
     let body = event.body.processed;
+
+
+    let sidebar = event.field_sidebar.processed;
+
 
     let videoURL = event.field_external_video_url.uri;
 
@@ -344,10 +342,7 @@ class EventsPage extends React.Component {
                 { renderTags() }
               </SideBar> */}
               <SideBar>
-        
-
-                <Chat dangerouslySetInnerHTML={{ __html: chat }} />
-
+                <Chat dangerouslySetInnerHTML={{ __html: sidebar }} />
               </SideBar>
             </Content>
           </TopContainer>
@@ -376,6 +371,9 @@ export const query = graphql`
           id
           title
           body {
+            processed
+          }
+          field_sidebar {
             processed
           }
           field_external_video_url {
