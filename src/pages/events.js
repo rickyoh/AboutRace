@@ -242,6 +242,9 @@ const ClipDescription = styled.div`
   @media (max-width: 812px) { /* mobile */
     max-width: 100%;
   }
+  img{
+    max-width:100%;
+  }
 `
 
 const Footer = styled(Row)`
