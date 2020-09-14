@@ -607,6 +607,9 @@ export const FullClipFragment = graphql`
     field_overview {
       processed
     }
+    field_full_version {
+      processed
+    }
     field_title_of_clip {
       processed
     }

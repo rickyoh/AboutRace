@@ -291,14 +291,13 @@ class EventsPage extends React.Component {
       if(item.id == '1f620dc8-dc7e-4dba-83a3-95f8a7e0bbcb'){
         event = item;
       }
-  
     })
 
     let title = event.title;
-    let body = event.body.processed;
+    let body = (event.body != null) ? event.body.processed : '';
 
 
-    let sidebar = event.field_sidebar.processed;
+    let sidebar = (event.field_sidebar != null) ? event.field_sidebar.processed : '';
 
 
     let videoURL = event.field_external_video_url.uri;
@@ -306,14 +305,14 @@ class EventsPage extends React.Component {
     let videoId = videoURL ? videoURL.split('/').pop() : ''
 
     let videoPlayer;
-
     
     if(videoURL.includes('youtube.com')){
       videoPlayer = <ReactPlayer 
                       style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-                       url={videoURL} />
+                       url={videoURL} 
+                       controls={true}                    
+                       />
     }
-
 
     return (
       <Layout location={this.props.location}>
