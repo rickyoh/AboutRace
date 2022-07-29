@@ -16,7 +16,7 @@ deploy:
   local_dir: public
   acl: public_read
 before_script:
-  - "yarn install"
+  - "npm i"
 script:
   - "npm run test"
 after_success:
